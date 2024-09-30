@@ -4,10 +4,10 @@ from django.db import models
 
 class User(AbstractUser):
 
-    ROLE = {
-        'admin': "админ",
-        'user': 'пользователь'
-    }
+    ROLE = [
+        ('admin', "админ"),
+        ('user', 'пользователь')
+    ]
     username = None
 
     first_name = models.CharField(max_length=150, verbose_name="Имя")
@@ -16,7 +16,7 @@ class User(AbstractUser):
     phone = models.CharField(
         max_length=50, verbose_name="Телефон", null=True, blank=True
     )
-    role = models.CharField(choices=ROLE, max_length=50, verbose_name='роль')
+    role = models.CharField(choices=ROLE, max_length=50, verbose_name='роль', default='admin')
     image = models.ImageField(upload_to='media/', blank=True, null=True)
 
     USERNAME_FIELD = "email"
