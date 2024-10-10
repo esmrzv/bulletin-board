@@ -36,6 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
+    'djoser',
+    'rest_framework.authtoken',
     "corsheaders",
     'drf_yasg',
     'users',
@@ -142,12 +145,27 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
     )
 }
 
 EMAIL_HOST = "smtp.yandex.ru"
-EMAIL_PORT = "465"
-EMAIL_HOST_USER = "esmrzv@yandex.ru"
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "esmrzv06@yandex.ru"
 EMAIL_HOST_PASSWORD = "uqioxcmhhtrdrwpv"
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
+
+DJOSER = {
+    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    # 'USER_CREATE_PASSWORD_RETYPE': True,
+    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': False,
+    'SERIALIZERS': {
+        "user_create": "users.serializers.UserSerializer",
+        "user": "users.serializers.UserSerializer",
+    },
+}
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

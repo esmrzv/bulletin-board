@@ -12,6 +12,7 @@ urlpatterns = [
     path('<int:pk>/update/', AdUpdateApiView.as_view(), name='update'),
     path('<int:pk>/delete/', AdDeleteApiView.as_view(), name='delete'),
     path('list/', AdListApiView.as_view(), name='list'),
+
     path('feedback/list/', FeedbackListApiView.as_view(), name='feedback-list'),
     path('feedback/<int:pk>/detail/', FeedbackDetailApiView.as_view(), name='feedback-detail'),
     path('feedback/<int:pk>/update/', FeedbackUpdateApiView.as_view(), name='feedback-update'),

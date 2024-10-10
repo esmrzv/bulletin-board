@@ -6,6 +6,7 @@ from board.models import Ad, Feedback
 from board.paginators import MyPagination
 from board.serializers import AdSerializer, FeedbackSerializer
 from users.permissions import IsAdmin, IsUser
+from rest_framework.filters import SearchFilter
 
 
 class AdCreateApiView(CreateAPIView):
@@ -13,18 +14,23 @@ class AdCreateApiView(CreateAPIView):
     queryset = Ad.objects.all()
     permission_classes = (IsAuthenticated, IsUser | IsAdmin)
 
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 class AdListApiView(ListAPIView):
     serializer_class = AdSerializer
     queryset = Ad.objects.all()
     pagination_class = MyPagination
     permission_classes = (AllowAny,)
+    filter_backends = [SearchFilter]
+    search_fields = ['title']
 
 
 class AdDetailApiView(RetrieveAPIView):
     serializer_class = AdSerializer
     queryset = Ad.objects.all()
-    permission_classes = (IsAdmin, IsUser | IsAdmin)
+    permission_classes = (IsUser | IsAdmin)
 
 
 class AdUpdateApiView(UpdateAPIView):
