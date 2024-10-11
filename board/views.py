@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
@@ -30,7 +29,7 @@ class AdListApiView(ListAPIView):
 class AdDetailApiView(RetrieveAPIView):
     serializer_class = AdSerializer
     queryset = Ad.objects.all()
-    permission_classes = (IsUser | IsAdmin)
+    permission_classes = (IsUser, IsAuthenticated)
 
 
 class AdUpdateApiView(UpdateAPIView):

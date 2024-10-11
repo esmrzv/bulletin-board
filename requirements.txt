@@ -8,3 +8,4 @@ djangorestframework-simplejwt==5.3.1
 ipython==8.18.1
 django-filter==24.3
 djoser==2.2.3
+python-dotenv==1.0.1
